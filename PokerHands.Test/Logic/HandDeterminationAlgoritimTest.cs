@@ -43,8 +43,8 @@ namespace PokerHands.Test.Logic
         [TestCaseSource(nameof(TestHands))]
         public void TestResolvePokerHand(TestHand hand)
         {
-            var result = HandDeterminationAlgorithm.ResolvePokerHand(hand.Hand);
-            Assert.AreEqual(hand.ExpectedResult, result.Result);
+            var result = HandDeterminationAlgorithm.ResolvePokerHand(hand.Cards);
+            Assert.AreEqual(hand.ExpectedResult, result);
         }
 
         public static IEnumerable<TestHand> TestHands()
@@ -58,7 +58,7 @@ namespace PokerHands.Test.Logic
                 new Card(Suit.Heart, Face.Ace)
             };
 
-            yield return new TestHand(new Hand(cards), PokerHand.HighCard);
+            yield return new TestHand(cards, Hand.HighCard);
 
             cards = new[]
             {
@@ -69,7 +69,7 @@ namespace PokerHands.Test.Logic
                 new Card(Suit.Heart, Face.Ace)
             };
 
-            yield return new TestHand(new Hand(cards), PokerHand.Pair);
+            yield return new TestHand(cards, Hand.Pair);
 
             cards= new[]
             {
@@ -80,7 +80,7 @@ namespace PokerHands.Test.Logic
                 new Card(Suit.Heart, Face.Ace)
             };
 
-            yield return new TestHand(new Hand(cards), PokerHand.TwoPair);
+            yield return new TestHand(cards, Hand.TwoPair);
 
             cards = new[]
             {
@@ -91,7 +91,7 @@ namespace PokerHands.Test.Logic
                 new Card(Suit.Heart, Face.Ten)
             };
 
-            yield return new TestHand(new Hand(cards), PokerHand.ThreeOfAKind);
+            yield return new TestHand(cards, Hand.ThreeOfAKind);
 
             cards = new[]
             {
@@ -102,7 +102,7 @@ namespace PokerHands.Test.Logic
                 new Card(Suit.Heart, Face.Six)
             };
 
-            yield return new TestHand(new Hand(cards), PokerHand.Straight);
+            yield return new TestHand(cards, Hand.Straight);
 
             cards = new[]
             {
@@ -113,7 +113,7 @@ namespace PokerHands.Test.Logic
                 new Card(Suit.Heart, Face.Ace)
             };
 
-            yield return new TestHand(new Hand(cards), PokerHand.Flush);
+            yield return new TestHand(cards, Hand.Flush);
 
             cards = new[]
             {
@@ -124,7 +124,7 @@ namespace PokerHands.Test.Logic
                 new Card(Suit.Heart, Face.Two)
             };
 
-            yield return new TestHand(new Hand(cards), PokerHand.FullHouse);
+            yield return new TestHand(cards, Hand.FullHouse);
 
             cards = new[]
             {
@@ -135,7 +135,7 @@ namespace PokerHands.Test.Logic
                 new Card(Suit.Heart, Face.King)
             };
 
-            yield return new TestHand(new Hand(cards), PokerHand.FourOfAKind);
+            yield return new TestHand(cards, Hand.FourOfAKind);
 
             cards = new[]
             {
@@ -146,7 +146,7 @@ namespace PokerHands.Test.Logic
                 new Card(Suit.Diamond, Face.Eight)
             };
 
-            yield return new TestHand(new Hand(cards), PokerHand.StraightFlush);
+            yield return new TestHand(cards, Hand.StraightFlush);
 
             cards = new[]
             {
@@ -157,17 +157,17 @@ namespace PokerHands.Test.Logic
                 new Card(Suit.Club, Face.Ace)
             };
 
-            yield return new TestHand(new Hand(cards), PokerHand.RoyalFlush);
+            yield return new TestHand(cards, Hand.RoyalFlush);
         }
 
         public class TestHand
         {
-            public Hand Hand { get; }
-            public Model.PokerHand ExpectedResult { get; }
+            public IEnumerable<Card> Cards { get; }
+            public Hand ExpectedResult { get; }
 
-            public TestHand(Hand hand, PokerHand expectedResult)
+            public TestHand(IEnumerable<Card> hand, Hand expectedResult)
             {
-                Hand = hand;
+                Cards = hand;
                 ExpectedResult = expectedResult;
             }
         }

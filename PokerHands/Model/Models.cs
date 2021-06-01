@@ -31,7 +31,7 @@ namespace PokerHands.Model
         Ace,
     }
 
-    public enum PokerHand
+    public enum Hand
     {
         HighCard,
         Pair,
@@ -59,46 +59,7 @@ namespace PokerHands.Model
 
         public override string ToString()
         {
-            return $"{Suit} {Face}";
-        }
-    }
-
-    public class Hand
-    {
-        public IEnumerable<Card> Cards { get; }
-
-        public Hand(IEnumerable<Card> cards)
-        {
-            Cards = cards;
-        }
-
-        public override string ToString()
-        {
-            var stringBuilder = new StringBuilder();
-            foreach (var card in Cards)
-            {
-                stringBuilder.Append($"{EnumUtils.TransformFace(card.Face)}{EnumUtils.TransformSuit(card.Suit)} ");
-            }
-
-            return stringBuilder.ToString();
-        }
-    }
-
-    public class HandResult
-    {
-        public Hand Input { get; }
-        public PokerHand Result { get; }
-        public Face HighCard { get; set; }
-
-        public HandResult(Hand input, PokerHand result)
-        {
-            Input = input;
-            Result = result;
-        }
-
-        public override string ToString()
-        {
-            return $"{Input} => {Result}";
+            return $"{EnumUtils.TransformFace(Face)}{EnumUtils.TransformSuit(Suit)}";
         }
     }
 }

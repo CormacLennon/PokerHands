@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
+using PokerHands.Model;
 
 namespace PokerHands.Util
 {
@@ -15,6 +17,17 @@ namespace PokerHands.Util
                     yield return element;
                 }
             }
+        }
+
+        public static string ToElementsString<T>(this IEnumerable<T> items)
+        {
+            var stringBuilder = new StringBuilder();
+            foreach (var item in items)
+            {
+                stringBuilder.Append(item);
+                stringBuilder.Append(" ");
+            }
+            return stringBuilder.ToString().Trim();
         }
     }
 }

@@ -54,7 +54,7 @@ namespace PokerHands.Test.Incoming
                 new Card(Suit.Heart, Face.Ace), new Card(Suit.Club, Face.Ace)
             };
 
-            var result = source.DuplicateCardCheck(new Hand(cards));
+            var result = source.DuplicateCardCheck(cards);
 
             Assert.AreEqual(false, result);
 
@@ -64,7 +64,7 @@ namespace PokerHands.Test.Incoming
                 new Card(Suit.Heart, Face.Ace), new Card(Suit.Club, Face.Three)
             };
 
-            result = source.DuplicateCardCheck(new Hand(cards));
+            result = source.DuplicateCardCheck(cards);
 
             Assert.AreEqual(true, result);
         }
@@ -82,13 +82,13 @@ namespace PokerHands.Test.Incoming
                 new Card(Suit.Club, Face.King), new Card(Suit.Heart, Face.Ace)
             };
 
-            var result = source.TransformToHand("2H TD 7S KC AH");
+            var result = source.TransformToCards("2H TD 7S KC AH");
 
-            Assert.AreEqual(result.Cards.Count(), expectedCards.Length);
+            Assert.AreEqual(result.Count(), expectedCards.Length);
 
             foreach (var expectedCard in expectedCards)
             {
-                Assert.IsTrue(result.Cards.Contains(expectedCard));
+                Assert.IsTrue(result.Contains(expectedCard));
             }
         }
     }
@@ -101,10 +101,7 @@ namespace PokerHands.Test.Incoming
         {
             HandInput =  Observable.Create<string>(observer =>
                 {
-                    //foreach (var item in testData)
-                    //{
-                        observer.OnNext(testData);
-                   // }
+                    observer.OnNext(testData);
                     observer.OnCompleted();
                     return Disposable.Create(() => Console.WriteLine("Observer has unsubscribed"));
                 });

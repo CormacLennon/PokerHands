@@ -5,6 +5,7 @@ using CommandLine;
 using PokerHands.Incoming;
 using PokerHands.Incoming.Adaptors;
 using PokerHands.Logic;
+using PokerHands.Util;
 
 [assembly: InternalsVisibleTo("PokerHands.Test")]
 namespace PokerHands
@@ -48,9 +49,12 @@ namespace PokerHands
             var source = new PokerHandSource(adaptor);
 
             source.Hands
-                .Select(x => HandDeterminationAlgorithm.ResolvePokerHand(x))
                 .Subscribe(
-                    result => Console.WriteLine(result),
+                    cards =>
+                    {
+                        var result = HandDeterminationAlgorithm.ResolvePokerHand(cards);
+                        Console.WriteLine($"{cards.ToElementsString()} => {result}");
+                    },
                     exception => Console.Error.WriteLine($"Unhandled exception: {exception}"));
 
             return 0;

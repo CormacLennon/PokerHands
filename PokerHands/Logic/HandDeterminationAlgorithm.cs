@@ -12,10 +12,8 @@ namespace PokerHands.Logic
     {
         private static readonly Face[] AcesLowStraight = { Face.Two, Face.Three, Face.Four, Face.Five, Face.Ace };
 
-        public static HandResult ResolvePokerHand(Hand hand)
+        public static Hand ResolvePokerHand(IEnumerable<Card> cards)
         {
-            var cards = hand.Cards;//.OrderBy(x => x.Face);
-
             var isFlush = IsFlush(cards);
             var isStraight = IsStraight(cards.Select(x => x.Face));
 
@@ -28,59 +26,59 @@ namespace PokerHands.Logic
                 cards.Any(x => x.Face == Face.King) &&
                 cards.Any(x => x.Face == Face.Ace))
             {
-                return new HandResult(hand, Model.PokerHand.RoyalFlush);
+                return Hand.RoyalFlush;
             }
 
             //straight flush
             if (isFlush && isStraight)
             {
-                return new HandResult(hand, Model.PokerHand.StraightFlush);
+                return Hand.StraightFlush;
             }
 
             //four of a kind
             if (faceGroupCount.Any(x => x == 4))
             {
-                return new HandResult(hand, Model.PokerHand.FourOfAKind);
+                return Hand.FourOfAKind;
             }
 
             //full house
             //If theres only two groups but we didnt return in the above four of a kind check it must be a full house
             if (faceGroupCount.Count() == 2)
             {
-                return new HandResult(hand, Model.PokerHand.FullHouse);
+                return Hand.FullHouse;
             }
 
             //flush
             if (isFlush)
             {
-                return new HandResult(hand, Model.PokerHand.Flush);
+                return Hand.Flush;
             }
 
             //straight
             if (isStraight)
             {
-                return new HandResult(hand, Model.PokerHand.Straight);
+                return Hand.Straight;
             }
 
             //three of a kind
             if (faceGroupCount.Any(x => x == 3))
             {
-                return new HandResult(hand, Model.PokerHand.ThreeOfAKind);
+                return Hand.ThreeOfAKind;
             }
 
             //two pair
             if (faceGroupCount.Count(x => x == 2) == 2)
             {
-                return new HandResult(hand, Model.PokerHand.TwoPair);
+                return Hand.TwoPair;
             }
 
             //pair
             if (faceGroupCount.Any(x => x == 2))
             {
-                return new HandResult(hand, Model.PokerHand.Pair);
+                return Hand.Pair;
             }
-            var result = new HandResult(hand, Model.PokerHand.HighCard);
-            result.HighCard = cards.Last().Face;
+            var result = Hand.HighCard;
+            //result.HighCard = cards.Last().Face;
             return result;
         }
 
