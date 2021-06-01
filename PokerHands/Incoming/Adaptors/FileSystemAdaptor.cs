@@ -20,10 +20,10 @@ namespace PokerHands.Incoming.Adaptors
         public FileSystemAdapter(string filePath)
         {
             if (string.IsNullOrEmpty(filePath))
-                throw new ArgumentException("filePath");
+                throw new ArgumentException("filePath is empty");
 
             if (!File.Exists(filePath))
-                throw new ArgumentException(
+                throw new FileNotFoundException(
                     $"Provided path is invalid or the process does not have enough permissions to read");
 
             if (Path.GetExtension(filePath) != AcceptedFileType)

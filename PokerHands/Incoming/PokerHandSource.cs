@@ -31,11 +31,11 @@ namespace PokerHands.Incoming
                 .Select(TransformToHand)
                 .Where(x =>
                 {
-                    var valid = IsValidHand(x);
+                    var allUnique = DuplicateCardCheck(x);
 
-                    if (!valid)
-                        Console.WriteLine($"input '{x}' is not a valid hand");
-                    return valid;
+                    if (!allUnique)
+                        Console.WriteLine($"{x} => input must not have duplicates");
+                    return allUnique;
                 });
         }
 
@@ -53,7 +53,7 @@ namespace PokerHands.Incoming
             return new Hand(cards);
         }
 
-        internal bool IsValidHand(Hand hand)
+        internal bool DuplicateCardCheck(Hand hand)
         {
             if (hand.Cards.Distinct().Count() != 5)
                 return false;

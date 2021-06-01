@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using PokerHands.Model;
@@ -25,6 +26,7 @@ namespace PokerHands.Util
             'Q' => Face.Queen,
             'K' => Face.King,
             'A' => Face.Ace,
+            _ => throw new SwitchExpressionException($"Can't handle face {symbol}")
         };
 
         internal static char TransformFace(Face symbol) => symbol switch
@@ -42,6 +44,7 @@ namespace PokerHands.Util
             Face.Queen => 'Q', 
             Face.King => 'K',
             Face.Ace => 'A',
+            _ => throw new SwitchExpressionException($"Can't handle face {symbol}")
         };
 
         internal static Suit TransformSuit(char symbol) => symbol switch
@@ -50,6 +53,7 @@ namespace PokerHands.Util
             'D' => Suit.Diamond,
             'S' => Suit.Spade,
             'C' => Suit.Club,
+            _ => throw new SwitchExpressionException($"Can't handle input {symbol}")
         };
 
         internal static char TransformSuit(Suit suit) => suit switch
@@ -58,7 +62,8 @@ namespace PokerHands.Util
             Suit.Heart => 'H',
             Suit.Diamond => 'D',
             Suit.Spade => 'S',
-            Suit.Club => 'C'
+            Suit.Club => 'C',
+            _ => throw new SwitchExpressionException($"Can't handle suit {suit}")
         };
     }
 }

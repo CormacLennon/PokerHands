@@ -28,7 +28,7 @@ namespace PokerHands.Model
         Jack,
         Queen,
         King,
-        Ace
+        Ace,
     }
 
     public enum PokerHand
@@ -61,19 +61,6 @@ namespace PokerHands.Model
         {
             return $"{Suit} {Face}";
         }
-
-  /*      public override bool Equals(object? obj)
-        {
-            var otherHand = obj as Card;
-            if (otherHand == null)
-                return false;
-            return Face == otherHand.Face && Suit == otherHand.Suit;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Suit, Face);
-        }*/
     }
 
     public class Hand
@@ -111,7 +98,7 @@ namespace PokerHands.Model
 
         public override string ToString()
         {
-            return $"{Input} {Result}";
+            return $"{Input} => {Result}";
         }
     }
 }

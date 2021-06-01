@@ -15,12 +15,13 @@ namespace PokerHands
 
         static void Main(string[] args)
         {
-            CommandLine.Parser.Default.ParseArguments<CommandLineOptions>(args)
+            var error = CommandLine.Parser.Default.ParseArguments<CommandLineOptions>(args)
                 .MapResult(
                     opts => Run(opts),
                     errs => 1);
 
-            ShutdownEvent.WaitOne();
+            if(error == 0)
+                ShutdownEvent.WaitOne();
         }
 
         internal static int Run(CommandLineOptions args)
@@ -35,16 +36,12 @@ namespace PokerHands
             {
                 try
                 {
+                    Console.WriteLine("£" + args.Path);
                     adaptor = new FileSystemAdapter(args.Path);
-                }
-                catch (ArgumentException e)
-                {
-                    Console.Error.WriteLine($"Please provide a path to a txt file with the input");
-                    return 1;
                 }
                 catch (Exception e)
                 {
-                    Console.Error.WriteLine($"Exception Initialising file system adapter: {e}");
+                    Console.Error.WriteLine(e);
                     return 1;
                 }
             }

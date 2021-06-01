@@ -54,7 +54,7 @@ namespace PokerHands.Test.Incoming
                 new Card(Suit.Heart, Face.Ace), new Card(Suit.Club, Face.Ace)
             };
 
-            var result = source.IsValidHand(new Hand(cards));
+            var result = source.DuplicateCardCheck(new Hand(cards));
 
             Assert.AreEqual(false, result);
 
@@ -64,7 +64,7 @@ namespace PokerHands.Test.Incoming
                 new Card(Suit.Heart, Face.Ace), new Card(Suit.Club, Face.Three)
             };
 
-            result = source.IsValidHand(new Hand(cards));
+            result = source.DuplicateCardCheck(new Hand(cards));
 
             Assert.AreEqual(true, result);
         }

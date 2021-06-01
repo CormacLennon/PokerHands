@@ -19,7 +19,11 @@ namespace PokerHands.Incoming.Adaptors
         public ConsoleAdaptor()
         {
             HandInput = Observable
-                    .FromAsync(() => Console.In.ReadLineAsync())
+                    .FromAsync(() =>
+                    {
+                        Console.WriteLine($"Please enter a hand combination:");
+                        return Console.In.ReadLineAsync();
+                    })
                     .Repeat()
                     .SubscribeOn(Scheduler.Default);
         }
