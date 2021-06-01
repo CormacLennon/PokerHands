@@ -36,7 +36,6 @@ namespace PokerHands
             {
                 try
                 {
-                    Console.WriteLine("£" + args.Path);
                     adaptor = new FileSystemAdapter(args.Path);
                 }
                 catch (Exception e)
